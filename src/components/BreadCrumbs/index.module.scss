@@ -1,0 +1,16 @@
+.crumbs {
+    ol {
+        list-style-type: none;
+        padding-inline-start: 0;
+    }
+}
+
+.crumb {
+    display: inline-block;
+
+    a::after {
+        display: inline-block;
+        content: ">";
+        padding: 0 0.3rem;
+    }
+}

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import BlogPostItem from "@components/BlogPostItem.astro";
+import { BlogPostItem } from "@components/BlogPostItem";
 const allPosts = await Astro.glob("@pages/posts/*.md");
 const pageTitle = "Weblog - iokira's blog";
 ---

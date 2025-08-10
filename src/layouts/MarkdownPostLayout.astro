@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import BreadCrumbs from "@components/BreadCrumbs.astro";
+import { BreadCrumbs } from "@components/BreadCrumbs";
 const { frontmatter } = Astro.props;
 const publishDateString = new Date(
     frontmatter.publishDate,
