@@ -1,6 +1,6 @@
 ---
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+import { Header } from "@components/Header";
+import { Footer } from "@components/Footer";
 import "@styles/global.css";
 
 const { pageTitle } = Astro.props;
@@ -11,7 +11,7 @@ const { pageTitle } = Astro.props;
         <meta charset="utf-8" />
         <meta
             name="viewport"
-            content="width=device-width"
+            content="initial-scale=1, width=device-width"
         />
         <meta
             name="generator"
