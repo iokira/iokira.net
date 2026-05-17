@@ -10,11 +10,8 @@
         "node": "20.16.0"
     },
     "dependencies": {
-        "@astrojs/react": "4.3.0",
         "@fontsource-variable/noto-sans-jp": "5.2.10",
-        "astro": "5.18.1",
-        "react": "19.1.1",
-        "react-dom": "19.1.1"
+        "astro": "5.18.1"
     },
     "devDependencies": {
         "husky": "9.1.7",
