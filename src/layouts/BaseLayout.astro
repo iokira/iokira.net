@@ -1,6 +1,6 @@
 ---
-import { Header } from "@components/Header";
-import { Footer } from "@components/Footer";
+import Header from "@components/Header/index.astro";
+import Footer from "@components/Footer/index.astro";
 import "@styles/global.css";
 
 const { pageTitle } = Astro.props;
@@ -16,19 +16,6 @@ const { pageTitle } = Astro.props;
         <meta
             name="generator"
             content={Astro.generator}
-        />
-        <link
-            rel="preconnect"
-            href="https://fonts.googleapis.com"
-        />
-        <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossorigin
-        />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
-            rel="stylesheet"
         />
         <title>{pageTitle}</title>
     </head>
