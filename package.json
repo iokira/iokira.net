@@ -10,6 +10,7 @@
         "node": "20.16.0"
     },
     "dependencies": {
+        "@astrojs/sitemap": "^3.7.3",
         "@fontsource-variable/noto-sans-jp": "5.2.10",
         "astro": "5.18.1"
     },

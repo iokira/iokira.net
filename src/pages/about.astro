@@ -2,7 +2,6 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import profileImage from "../assets/profile.jpg";
-const pageTitle = "About iokira";
 
 const accounts = [
     { link: "https://github.com/iokira", name: "GitHub" },
@@ -27,11 +26,14 @@ const bio = [
 ];
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout
+    pageTitle="About"
+    description="吉良伊織 (iokira) のプロフィール。コーヒー・紅茶・読書愛好家のエンジニア。"
+>
     <div class="headline">
         <div class="texts">
             <h1 class="name">iokira</h1>
-            <p>吉良伊織 (Kira Iori)</p>
+            <p class="real-name">吉良伊織 (Kira Iori)</p>
             <p class="comment">カフェインに弱いコーヒー・読書愛好家。</p>
         </div>
         <Image
@@ -98,6 +100,7 @@ const bio = [
                     <a
                         href={account.link}
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         {account.name}&#8599;
                     </a>
@@ -112,25 +115,63 @@ const bio = [
         {qualifications.map((qualification) => <li>{qualification.name}</li>)}
     </ul>
 </BaseLayout>
+
 <style lang="scss">
     .headline {
-        padding-block: 1rem;
+        padding-block: 2.5rem 2rem;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        border-bottom: 1px solid var(--color-border);
+        margin-bottom: 2rem;
 
-        @media screen and (max-width: 800px) {
-            flex-direction: column;
+        @media screen and (max-width: 600px) {
+            flex-direction: column-reverse;
+            align-items: flex-start;
         }
     }
+
+    .name {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        margin: 0 0 0.25rem;
+        letter-spacing: -0.02em;
+    }
+
+    .real-name {
+        color: var(--color-text-muted);
+        margin: 0 0 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .comment {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .profile-image {
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        width: 120px;
+        height: 120px;
+
+        @media screen and (max-width: 600px) {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
     .bio {
         display: flex;
         flex-direction: column;
+        gap: 0.5rem;
 
         > .bio-item {
             display: flex;
             flex-direction: row;
-            gap: 1rem;
+            gap: 1.5rem;
         }
     }
 </style>

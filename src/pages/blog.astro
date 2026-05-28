@@ -1,16 +1,31 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlogPostItem from "@components/BlogPostItem/index.astro";
+import { readingTime } from "../utils/readingTime";
+
 const allPosts = Object.values(
-    import.meta.glob("./posts/*.md", { eager: true }),
+    import.meta.glob("./posts/*.md", { eager: true }) as Record<
+        string,
+        {
+            url: string;
+            frontmatter: Record<string, string>;
+            rawContent: () => string;
+        }
+    >,
 );
-const pageTitle = "Weblog - iokira's blog";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-    <h1>{pageTitle}</h1>
-    <h2>美味しかったコーヒーや面白かった本、勉強したことについて書く日記。</h2>
-    <ol class="blogPostItems">
+<BaseLayout
+    pageTitle="Weblog"
+    description="コーヒー、紅茶、本、音楽、技術について書く日記。"
+>
+    <div class="blog-header">
+        <h1>Weblog</h1>
+        <p class="subtitle">
+            美味しかったコーヒーや面白かった本、勉強したことについて書く日記。
+        </p>
+    </div>
+    <ol class="post-list">
         {
             allPosts
                 .sort(
@@ -20,17 +35,39 @@ const pageTitle = "Weblog - iokira's blog";
                 )
                 .map((post) => (
                     <li>
-                        <BlogPostItem post={post} />
+                        <BlogPostItem
+                            post={post}
+                            readingMinutes={readingTime(post.rawContent())}
+                        />
                     </li>
                 ))
         }
     </ol>
 </BaseLayout>
-<style lang="scss">
-    .blogPostItems {
+
+<style>
+    .blog-header {
+        padding-block: 2.5rem 2rem;
+        border-bottom: 1px solid var(--color-border);
+        margin-bottom: 2rem;
+    }
+
+    .blog-header h1 {
+        margin: 0 0 0.5rem;
+    }
+
+    .subtitle {
+        color: var(--color-text-muted);
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
         display: flex;
         flex-direction: column;
-        list-style: none;
-        padding-inline-start: 0;
+        gap: 0;
     }
 </style>
