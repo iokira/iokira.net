@@ -1,9 +1,37 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-const pageTitle = "404 - Page Not Found";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-    <h1>{pageTitle}</h1>
-    <a href="/">Back to top page</a>
+<BaseLayout
+    pageTitle="404 - Page Not Found"
+    description="お探しのページが見つかりませんでした。"
+>
+    <div class="not-found">
+        <h1>404</h1>
+        <p>お探しのページが見つかりませんでした。</p>
+        <a href="/">トップページへ戻る</a>
+    </div>
 </BaseLayout>
+
+<style>
+    .not-found {
+        padding-block: 4rem;
+        text-align: center;
+    }
+
+    .not-found h1 {
+        font-size: 4rem;
+        margin: 0 0 1rem;
+        color: var(--color-text-muted);
+    }
+
+    .not-found p {
+        color: var(--color-text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    .not-found a {
+        color: var(--color-accent);
+        font-weight: 500;
+    }
+</style>

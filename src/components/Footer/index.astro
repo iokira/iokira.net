@@ -1,13 +1,21 @@
 ---
-
+const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
-    <p>&copy;iokira 2025</p>
+    <p>&copy; {year} iokira</p>
 </footer>
 
 <style>
     .footer {
-        padding-inline: 2rem;
+        border-top: 1px solid var(--color-border);
+        padding-block: 1.5rem;
+        margin-top: auto;
+    }
+
+    .footer p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
     }
 </style>

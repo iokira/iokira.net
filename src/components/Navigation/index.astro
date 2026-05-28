@@ -2,34 +2,50 @@
 
 ---
 
-<nav class="nav-links">
-    <a href="/">iokira.net</a>
-    <div class="links">
+<nav class="nav">
+    <a
+        href="/"
+        class="nav-logo"
+        >iokira.net</a
+    >
+    <div class="nav-links">
         <a href="/about">about</a>
         <a href="/blog">blog</a>
     </div>
 </nav>
 
-<style lang="scss">
-    .nav-links {
-        width: 100%;
+<style>
+    .nav {
         display: flex;
-        padding-block: 0.5rem;
+        align-items: center;
         justify-content: space-between;
+        padding-block: 1rem;
+    }
 
-        .links {
-            display: flex;
-            justify-content: flex-end;
-            flex-direction: row;
-            gap: 1rem;
-        }
+    .nav-logo {
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: -0.01em;
+        color: var(--color-text);
+    }
 
-        a {
-            text-decoration: none;
+    .nav-logo:hover {
+        color: var(--color-accent);
+    }
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+        font-weight: 500;
+        letter-spacing: 0.01em;
+    }
+
+    .nav-links a:hover {
+        color: var(--color-accent);
     }
 </style>

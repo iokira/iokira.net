@@ -9,34 +9,59 @@ interface Props {
 const { crumbs, topic } = Astro.props;
 ---
 
-<nav class="crumbs">
+<nav
+    class="breadcrumbs"
+    aria-label="パンくずリスト"
+>
     <ol>
+        <li><a href="/">home</a></li>
         {
             crumbs.map((crumb) => (
-                <li class="crumb">
+                <li>
                     <a href={crumb.url}>{crumb.title}</a>
                 </li>
             ))
         }
-        <li class="crumb">{topic}</li>
+        <li aria-current="page">{topic}</li>
     </ol>
 </nav>
 
-<style lang="scss">
-    .crumbs {
-        ol {
-            list-style-type: none;
-            padding-inline-start: 0;
-        }
+<style>
+    .breadcrumbs {
+        margin-bottom: 1.5rem;
     }
 
-    .crumb {
-        display: inline-block;
+    ol {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
+    }
 
-        a::after {
-            display: inline-block;
-            content: ">";
-            padding: 0 0.3rem;
-        }
+    li + li::before {
+        content: "/";
+        margin-right: 0.25rem;
+        color: var(--color-border);
+    }
+
+    a {
+        color: var(--color-text-muted);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: var(--color-accent);
+    }
+
+    li[aria-current="page"] {
+        color: var(--color-text);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 200px;
     }
 </style>

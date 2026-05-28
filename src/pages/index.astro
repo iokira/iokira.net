@@ -1,8 +1,106 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-const pageTitle = "iokira - home page";
+import BlogPostItem from "@components/BlogPostItem/index.astro";
+import { readingTime } from "../utils/readingTime";
+
+const allPosts = Object.values(
+    import.meta.glob("./posts/*.md", { eager: true }) as Record<
+        string,
+        {
+            url: string;
+            frontmatter: Record<string, string>;
+            rawContent: () => string;
+        }
+    >,
+);
+
+const recentPosts = allPosts
+    .sort(
+        (a, b) =>
+            new Date(b.frontmatter.publishDate).getTime() -
+            new Date(a.frontmatter.publishDate).getTime(),
+    )
+    .slice(0, 3);
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-    <h1>{pageTitle}</h1>
+<BaseLayout
+    pageTitle="iokira.net"
+    description="カフェインに弱い、コーヒー・紅茶・読書愛好家のブログ。主にコーヒー、本、音楽、技術について。"
+>
+    <section class="hero">
+        <h1 class="site-name">iokira.net</h1>
+        <p class="tagline">カフェインに弱い、コーヒー・紅茶・読書愛好家。</p>
+    </section>
+
+    <section class="recent-posts">
+        <h2>Recent Posts</h2>
+        <ol class="post-list">
+            {
+                recentPosts.map((post) => (
+                    <li>
+                        <BlogPostItem
+                            post={post}
+                            readingMinutes={readingTime(post.rawContent())}
+                        />
+                    </li>
+                ))
+            }
+        </ol>
+        <a
+            href="/blog"
+            class="all-posts-link"
+            >すべての記事を見る →</a
+        >
+    </section>
 </BaseLayout>
+
+<style>
+    .hero {
+        padding-block: 3rem 2rem;
+        border-bottom: 1px solid var(--color-border);
+        margin-bottom: 2.5rem;
+    }
+
+    .site-name {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        font-weight: 700;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.02em;
+    }
+
+    .tagline {
+        color: var(--color-text-muted);
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .recent-posts h2 {
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-text-muted);
+        margin: 0 0 1.5rem;
+    }
+
+    .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .all-posts-link {
+        font-size: 0.9rem;
+        color: var(--color-accent);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .all-posts-link:hover {
+        text-decoration: underline;
+    }
+</style>
