@@ -5,41 +5,78 @@ interface Props {
         frontmatter: {
             title: string;
             publishDate: string;
+            updateDate?: string;
             description: string;
         };
     };
+    readingMinutes: number;
 }
 
-const { post } = Astro.props;
+const { post, readingMinutes } = Astro.props;
+
+const displayDate = post.frontmatter.updateDate
+    ? new Date(post.frontmatter.updateDate).toLocaleDateString("ja-JP", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+      })
+    : new Date(post.frontmatter.publishDate).toLocaleDateString("ja-JP", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+      });
+
+const isUpdated = !!post.frontmatter.updateDate;
 ---
 
-<div class="blogPostItem">
-    <h3>
+<article class="post-item">
+    <h3 class="post-title">
         <a href={post.url}>{post.frontmatter.title}</a>
     </h3>
-    <p>投稿日: {post.frontmatter.publishDate}</p>
-    <p>{post.frontmatter.description}</p>
-</div>
+    <div class="post-meta">
+        <span class="post-date"
+            >{isUpdated ? "更新" : "投稿"} {displayDate}</span
+        >
+        <span class="post-reading">{readingMinutes} 分で読めます</span>
+    </div>
+    <p class="post-description">{post.frontmatter.description}</p>
+</article>
 
-<style lang="scss">
-    .blogPostItem {
-        margin-bottom: 1rem;
+<style>
+    .post-item {
+        padding-block: 1.5rem;
+        border-bottom: 1px solid var(--color-border);
+    }
 
-        h3 {
-            margin: 0 0 0.5rem 0;
+    .post-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0 0 0.4rem;
+        line-height: 1.4;
+    }
 
-            a {
-                text-decoration: none;
-                color: inherit;
+    .post-title a {
+        color: var(--color-accent);
+        text-decoration: none;
+    }
 
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
+    .post-title a:hover {
+        text-decoration: underline;
+    }
 
-        p {
-            margin: 0.25rem 0;
-        }
+    .post-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .post-description {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
     }
 </style>
