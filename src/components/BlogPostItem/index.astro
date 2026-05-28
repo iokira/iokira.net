@@ -37,7 +37,7 @@ const isUpdated = !!post.frontmatter.updateDate;
         <span class="post-date"
             >{isUpdated ? "更新" : "投稿"} {displayDate}</span
         >
-        <span class="post-reading">{readingMinutes} 分で読めます</span>
+        <span class="post-reading">読了目安 {readingMinutes}分</span>
     </div>
     <p class="post-description">{post.frontmatter.description}</p>
 </article>
