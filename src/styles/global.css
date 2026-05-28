@@ -107,3 +107,18 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+/* ── Dark mode ── */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-accent: #d96715;
+        --color-text: #e5e7eb;
+        --color-text-muted: #9ca3af;
+        --color-bg: #111827;
+        --color-border: #374151;
+    }
+
+    html {
+        color-scheme: dark;
+    }
+}
