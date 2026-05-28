@@ -1,29 +1,141 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BreadCrumbs from "@components/BreadCrumbs/index.astro";
-const { frontmatter } = Astro.props;
-const publishDateString = new Date(
-    frontmatter.publishDate,
-).toLocaleDateString();
-const updateDateString = frontmatter.updateDate
-    ? new Date(frontmatter.updateDate).toLocaleDateString()
+import { readingTime } from "../utils/readingTime";
+
+const { frontmatter, rawContent } = Astro.props;
+
+const minutes = readingTime(rawContent());
+
+const publishDate = new Date(frontmatter.publishDate).toLocaleDateString(
+    "ja-JP",
+    { year: "numeric", month: "long", day: "numeric" },
+);
+const updateDate = frontmatter.updateDate
+    ? new Date(frontmatter.updateDate).toLocaleDateString("ja-JP", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+      })
     : null;
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout
+    pageTitle={frontmatter.title}
+    description={frontmatter.description}
+>
     <BreadCrumbs
-        crumbs={[{ url: "/blog", title: "ブログ" }]}
+        crumbs={[{ url: "/blog", title: "Weblog" }]}
         topic={frontmatter.title}
     />
-    <p class="publishDate">&#x2191;{publishDateString}</p>
-    {updateDateString && <p class="publishDate">&#x21BB;{updateDateString}</p>}
-    <h1>{frontmatter.title}</h1>
-    <slot />
+    <article class="article">
+        <header class="article-header">
+            <h1>{frontmatter.title}</h1>
+            <div class="article-meta">
+                <span>投稿 {publishDate}</span>
+                {updateDate && <span>更新 {updateDate}</span>}
+                <span>{minutes} 分で読めます</span>
+            </div>
+        </header>
+        <div class="prose">
+            <slot />
+        </div>
+    </article>
 </BaseLayout>
+
 <style>
-    .publishDate {
-        height: 1rem;
-        margin: 0;
-        display: inline-block;
+    .article-header {
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--color-border);
+        margin-bottom: 2rem;
+    }
+
+    .article-header h1 {
+        margin-bottom: 0.75rem;
+    }
+
+    .article-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
+        flex-wrap: wrap;
+    }
+
+    /* ── Prose styles ── */
+    .prose :global(h2) {
+        font-size: 1.35rem;
+        margin: 2.5rem 0 0.75rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .prose :global(h3) {
+        font-size: 1.1rem;
+        margin: 2rem 0 0.5rem;
+    }
+
+    .prose :global(p) {
+        margin-bottom: 1.25rem;
+        line-height: 1.8;
+    }
+
+    .prose :global(a) {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    .prose :global(a:hover) {
+        opacity: 0.8;
+    }
+
+    .prose :global(code) {
+        font-family:
+            "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.875em;
+        background-color: #f3f4f6;
+        padding: 0.15em 0.4em;
+        border-radius: 3px;
+    }
+
+    .prose :global(pre) {
+        border-radius: 6px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+
+    .prose :global(pre code) {
+        background: none;
+        padding: 0;
+    }
+
+    .prose :global(blockquote) {
+        border-left: 3px solid var(--color-accent);
+        margin-inline: 0;
+        padding: 0.5rem 0 0.5rem 1.25rem;
+        color: var(--color-text-muted);
+        font-style: italic;
+    }
+
+    .prose :global(ul),
+    .prose :global(ol) {
+        margin-bottom: 1.25rem;
+    }
+
+    .prose :global(li) {
+        margin-bottom: 0.4rem;
+        line-height: 1.7;
+    }
+
+    .prose :global(img) {
+        border-radius: 6px;
+        margin: 1rem 0;
+    }
+
+    .prose :global(hr) {
+        margin: 2rem 0;
     }
 </style>
