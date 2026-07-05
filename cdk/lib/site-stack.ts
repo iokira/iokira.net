@@ -43,6 +43,7 @@ export class SiteStack extends cdk.Stack {
             "SiteDistribution",
             {
                 defaultRootObject: "index.html",
+                priceClass: cdk.aws_cloudfront.PriceClass.PRICE_CLASS_200,
                 defaultBehavior: {
                     origin: cdk.aws_cloudfront_origins.S3BucketOrigin.withOriginAccessControl(
                         siteBucket,
@@ -50,6 +51,8 @@ export class SiteStack extends cdk.Stack {
                     viewerProtocolPolicy:
                         cdk.aws_cloudfront.ViewerProtocolPolicy
                             .REDIRECT_TO_HTTPS,
+                    cachePolicy:
+                        cdk.aws_cloudfront.CachePolicy.CACHING_OPTIMIZED,
                     functionAssociations: [
                         {
                             function: redirectFunction,
@@ -64,13 +67,13 @@ export class SiteStack extends cdk.Stack {
                         httpStatus: 403,
                         responseHttpStatus: 200,
                         responsePagePath: "/404.html",
-                        ttl: cdk.Duration.minutes(1),
+                        ttl: cdk.Duration.minutes(5),
                     },
                     {
                         httpStatus: 404,
                         responseHttpStatus: 200,
                         responsePagePath: "/404.html",
-                        ttl: cdk.Duration.minutes(1),
+                        ttl: cdk.Duration.minutes(5),
                     },
                 ],
                 domainNames: [domainName],
