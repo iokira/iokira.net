@@ -12,6 +12,7 @@ interface Props {
 
 const { pageTitle, description, ogType, structuredData } = Astro.props;
 const siteTitle = "iokira.net";
+const twitterHandle = "@iokira_jp";
 const title =
     pageTitle === siteTitle ? siteTitle : `${pageTitle} | ${siteTitle}`;
 const metaDescription =
@@ -35,6 +36,16 @@ const ogImageURL = new URL("/og-image.png", Astro.site);
         <meta
             name="color-scheme"
             content="light dark"
+        />
+        <meta
+            name="theme-color"
+            media="(prefers-color-scheme: light)"
+            content="#ffffff"
+        />
+        <meta
+            name="theme-color"
+            media="(prefers-color-scheme: dark)"
+            content="#111827"
         />
         <title>{title}</title>
         <meta
@@ -66,6 +77,10 @@ const ogImageURL = new URL("/og-image.png", Astro.site);
         <meta
             property="og:locale"
             content="ja_JP"
+        />
+        <meta
+            property="og:site_name"
+            content={siteTitle}
         />
         <meta
             property="og:image"
@@ -100,6 +115,10 @@ const ogImageURL = new URL("/og-image.png", Astro.site);
         <meta
             name="twitter:image"
             content={ogImageURL}
+        />
+        <meta
+            name="twitter:creator"
+            content={twitterHandle}
         />
 
         <!-- Favicon -->
