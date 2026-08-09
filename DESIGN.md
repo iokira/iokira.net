@@ -89,4 +89,8 @@ SEO 改善・デザイン刷新・ブログ要素強化を一括実施。その�
 | 2026-08-09 | 本文リンクの視認性 | `a { color: inherit; text-decoration: none }` により本文中のリンクが本文と同色・下線なしで、`↗` 以外に手がかりがなかった。`main a` に限りアクセント色 + 下線を付与 (ヘッダー・フッターは位置で自明なため対象外)。あわせて `:focus-visible` のフォーカスリングを追加 |
 | 2026-08-09 | 日本語組版 | `line-break: strict` (禁則処理強化) と `overflow-wrap: anywhere` を body に、見出しに `text-wrap: balance`、段落に `text-wrap: pretty` を適用。いずれも progressive enhancement で非対応ブラウザでも破綻しない |
 | 2026-08-09 | OGP 画像 | 共有時にテキストしか出なかったため 1200×630 の `public/og-image.png` を追加し `twitter:card` を `summary_large_image` に変更。画像は profile.jpg + Noto Sans JP で生成 (Pillow、生成スクリプトはリポジトリ管理外) |
+| 2026-08-09 | LCP 改善 | プロフィール画像はファーストビュー内にあるのに `loading="lazy"` が付いていたため `eager` + `fetchpriority="high"` に変更。あわせて内在サイズを 200→240px に (CSS 表示 120px の 2x 相当) |
+| 2026-08-09 | 画像の alt | 英語の `"iokira's profile picture"` から日本語の説明に変更。画像の実体はコーヒー豆なのでその旨を記述 |
+| 2026-08-09 | robots.txt | `Sitemap:` ディレクティブが無かったため追加 |
+| 2026-08-09 | メタ情報の補完 | `theme-color` (ライト/ダーク別)、`og:site_name`、`twitter:creator` を追加 |
 | 2026-08-09 | 構造化データ | 人物として同定させるため `Person` schema の JSON-LD を追加。`sameAs` で GitHub / X を束ね、資格一覧は既存の `qualifications` 配列から `hasCredential` を生成。SNS リンクには `rel="me"` を付与。生年・出身地はプライバシー上の判断で意図的に含めていない |
