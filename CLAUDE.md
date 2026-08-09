@@ -2,7 +2,7 @@
 
 ## プロジェクト概要
 
-個人のポートフォリオ・ブログサイト。Astro 製の静的サイトで AWS (S3 + CloudFront + Route 53) にデプロイされる。
+個人の紹介サイト。Astro 製の静的サイトで AWS (S3 + CloudFront + Route 53) にデプロイされる。
 
 - **URL:** https://iokira.net
 - **言語:** 主に日本語
@@ -34,24 +34,15 @@
 │   ├── components/                  # Astro コンポーネント、各ディレクトリに scoped style
 │   │   ├── Header/
 │   │   ├── Navigation/
-│   │   ├── Footer/
-│   │   ├── BlogPostItem/
-│   │   └── BreadCrumbs/
+│   │   └── Footer/
 │   ├── layouts/
-│   │   ├── BaseLayout.astro         # meta/OGP/favicon 含む共通レイアウト
-│   │   └── MarkdownPostLayout.astro # 記事レイアウト (prose スタイル・コピーボタン)
+│   │   └── BaseLayout.astro         # meta/OGP/favicon 含む共通レイアウト
 │   ├── pages/
-│   │   ├── index.astro              # トップページ (自己紹介 + 最新 3 件)
+│   │   ├── index.astro              # トップページ (自己紹介)
 │   │   ├── about.astro
-│   │   ├── blog.astro               # ブログ一覧
-│   │   ├── 404.astro
-│   │   └── posts/                   # ブログ記事 (Markdown)
-│   ├── styles/
-│   │   └── global.css               # CSS カスタムプロパティ + ダークモード
-│   ├── types/
-│   │   └── Crumb.ts
-│   └── utils/
-│       └── readingTime.ts           # 読了時間計算 (400字/分)
+│   │   └── 404.astro
+│   └── styles/
+│       └── global.css               # CSS カスタムプロパティ + ダークモード
 ├── public/
 │   ├── favicon.png                  # 32×32 (profile.jpg から生成)
 │   ├── apple-touch-icon.png         # 180×180
@@ -150,26 +141,6 @@ const { foo } = Astro.props;
 - `tabWidth`: 4 (スペース)
 - `singleAttributePerLine`: true
 - コミット前に Husky + lint-staged が自動整形する
-
-## ブログ記事の追加方法
-
-`src/pages/posts/` に Markdown ファイルを追加する。フロントマターの形式:
-
-```markdown
----
-layout: ../../layouts/MarkdownPostLayout.astro
-title: "記事タイトル"
-publishDate: 2025/04/12
-updateDate: 2025/04/25   # 省略可
-description: "記事の説明 (meta description にも使用される)"
----
-
-本文...
-```
-
-- `blog.astro` と `index.astro` が `import.meta.glob()` で自動取得し `publishDate` 降順ソート
-- `updateDate` があると記事一覧に「更新」と表示される
-- `description` は OGP の `og:description` にも使われるため必ず書く
 
 ## SEO / メタ情報
 
