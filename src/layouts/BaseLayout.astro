@@ -6,9 +6,11 @@ import "@styles/global.css";
 interface Props {
     pageTitle: string;
     description?: string;
+    ogType?: string;
+    structuredData?: Record<string, unknown>;
 }
 
-const { pageTitle, description } = Astro.props;
+const { pageTitle, description, ogType, structuredData } = Astro.props;
 const siteTitle = "iokira.net";
 const title =
     pageTitle === siteTitle ? siteTitle : `${pageTitle} | ${siteTitle}`;
@@ -16,6 +18,7 @@ const metaDescription =
     description ??
     "カフェインに弱い、コーヒー・紅茶・読書愛好家、吉良伊織 (iokira) の個人サイト。";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL("/og-image.png", Astro.site);
 ---
 
 <html lang="ja">
@@ -46,7 +49,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <!-- OGP -->
         <meta
             property="og:type"
-            content="website"
+            content={ogType ?? "website"}
         />
         <meta
             property="og:url"
@@ -64,11 +67,27 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             property="og:locale"
             content="ja_JP"
         />
+        <meta
+            property="og:image"
+            content={ogImageURL}
+        />
+        <meta
+            property="og:image:width"
+            content="1200"
+        />
+        <meta
+            property="og:image:height"
+            content="630"
+        />
+        <meta
+            property="og:image:alt"
+            content="iokira.net — カフェインに弱い、コーヒー・紅茶・読書愛好家。"
+        />
 
         <!-- Twitter Card -->
         <meta
             name="twitter:card"
-            content="summary"
+            content="summary_large_image"
         />
         <meta
             name="twitter:title"
@@ -77,6 +96,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <meta
             name="twitter:description"
             content={metaDescription}
+        />
+        <meta
+            name="twitter:image"
+            content={ogImageURL}
         />
 
         <!-- Favicon -->
@@ -89,6 +112,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             rel="apple-touch-icon"
             href="/apple-touch-icon.png"
         />
+
+        {
+            structuredData && (
+                <script
+                    type="application/ld+json"
+                    set:html={JSON.stringify(structuredData)}
+                />
+            )
+        }
     </head>
     <body>
         <Header />

@@ -42,7 +42,7 @@ SEO 改善・デザイン刷新・ブログ要素強化を一括実施。その�
 
 ```css
 /* ライトモード */
---color-accent: #d96715;
+--color-accent: #b55612;   /* 白背景で 4.88:1。旧 #d96715 は 3.56:1 で AA 不合格だった */
 --color-text: #1a1a1a;
 --color-text-muted: #6b7280;
 --color-bg: #ffffff;
@@ -51,7 +51,7 @@ SEO 改善・デザイン刷新・ブログ要素強化を一括実施。その�
 --spacing-page: clamp(1.25rem, 4vw, 2.5rem);
 
 /* ダークモード (@media prefers-color-scheme: dark) */
---color-accent: #d96715;   /* コントラスト比 ~5.2:1 で WCAG AA 通過のため変更なし */
+--color-accent: #d96715;   /* 濃背景では 4.99:1 で AA 通過のため変更なし */
 --color-text: #e5e7eb;
 --color-text-muted: #9ca3af;
 --color-bg: #111827;
@@ -85,3 +85,8 @@ SEO 改善・デザイン刷新・ブログ要素強化を一括実施。その�
 | 2026-05-29 | 読了時間の表示形式 | `"N分で読めます"` → `"読了目安 N分"` にユーザー指示により変更 |
 | 2026-08-09 | ブログ機能の削除 | サイトの目的を「個人の紹介サイト」に絞るため、ブログ機能・記事・関連コンポーネント (BlogPostItem, BreadCrumbs, MarkdownPostLayout, readingTime, Crumb 型) を全て削除 |
 | 2026-08-09 | about ページの統合 | ページが 1 枚 (旧 index) になったため about.astro の内容をトップページに統合し廃止。旧 `/about` は `/` へリダイレクト。Navigation のページリンクも削除 (ロゴのみ) |
+| 2026-08-09 | アクセントカラーの分離 | 旧 `#d96715` は白背景で 3.56:1 と WCAG AA (4.5:1) 不合格だった。旧記録の「~5.2:1 で AA 通過」はダークモード側 (実測 4.99:1) の話で、ライトモードは未検証だった。色相・彩度を保ったまま明度のみ下げた `#b55612` (4.88:1) をライトモード用に採用し、ダークモードは `#d96715` のまま |
+| 2026-08-09 | 本文リンクの視認性 | `a { color: inherit; text-decoration: none }` により本文中のリンクが本文と同色・下線なしで、`↗` 以外に手がかりがなかった。`main a` に限りアクセント色 + 下線を付与 (ヘッダー・フッターは位置で自明なため対象外)。あわせて `:focus-visible` のフォーカスリングを追加 |
+| 2026-08-09 | 日本語組版 | `line-break: strict` (禁則処理強化) と `overflow-wrap: anywhere` を body に、見出しに `text-wrap: balance`、段落に `text-wrap: pretty` を適用。いずれも progressive enhancement で非対応ブラウザでも破綻しない |
+| 2026-08-09 | OGP 画像 | 共有時にテキストしか出なかったため 1200×630 の `public/og-image.png` を追加し `twitter:card` を `summary_large_image` に変更。画像は profile.jpg + Noto Sans JP で生成 (Pillow、生成スクリプトはリポジトリ管理外) |
+| 2026-08-09 | 構造化データ | 人物として同定させるため `Person` schema の JSON-LD を追加。`sameAs` で GitHub / X を束ね、資格一覧は既存の `qualifications` 配列から `hasCredential` を生成。SNS リンクには `rel="me"` を付与。生年・出身地はプライバシー上の判断で意図的に含めていない |

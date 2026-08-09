@@ -116,7 +116,8 @@ const { foo } = Astro.props;
 ### デザイントークン (CSS カスタムプロパティ)
 
 ```css
---color-accent: #d96715;      /* オレンジ系アクセント */
+--color-accent: #b55612;      /* オレンジ系アクセント (白背景で 4.88:1) */
+                              /* ダークモードでは #d96715 (濃背景で 4.99:1) */
 --color-text: #1a1a1a;
 --color-text-muted: #6b7280;
 --color-bg: #ffffff;
@@ -148,10 +149,19 @@ const { foo } = Astro.props;
 - `<title>`: `"タイトル | iokira.net"` 形式 (トップページのみ `"iokira.net"`)
 - `/about` → `/` へリダイレクト (`astro.config.ts` の `redirects`)
 - `<meta name="description">`
-- OGP (`og:title`, `og:description`, `og:type`, `og:url`)
-- Twitter Card (`summary`)
+- OGP (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`)
+  - `og:type` は `ogType` prop で上書き可 (既定 `website`、トップページは `profile`)
+  - `og:image` は `public/og-image.png` (1200×630)
+- Twitter Card (`summary_large_image`)
 - canonical URL
 - favicon / apple-touch-icon
+- JSON-LD: `structuredData` prop に渡したオブジェクトを `<script type="application/ld+json">` として出力。
+  トップページは `Person` schema (`sameAs` で GitHub / X を同一人物として束ねる)
+
+### 外部リンク
+
+SNS など本人のプロフィールへのリンクには `rel="me"` を付ける
+(IndieAuth・Mastodon の本人確認で使われる同一人物性の主張)。
 
 ## インフラ構成 (CDK)
 
