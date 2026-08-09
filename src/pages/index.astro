@@ -26,11 +26,46 @@ const bio = [
     { year: 2024, event: "久留米工業高等専門学校制御情報工学科を卒業" },
     { year: 2024, event: "チームラボ株式会社に入社" },
 ];
+
+// 検索エンジン・生成 AI に人物として同定させるための構造化データ。
+// sameAs が各 SNS プロフィールを同一人物として束ねる。
+const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "吉良伊織",
+    alternateName: ["iokira", "Kira Iori"],
+    jobTitle: "エンジニア",
+    description: "カフェインに弱いコーヒー・紅茶・読書愛好家。",
+    url: Astro.site?.href,
+    image: new URL(profileImage.src, Astro.site).href,
+    sameAs: accounts.map((account) => account.link),
+    alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "久留米工業高等専門学校",
+    },
+    worksFor: {
+        "@type": "Organization",
+        name: "チームラボ株式会社",
+    },
+    knowsAbout: [
+        "Amazon Web Services",
+        "クラウドアーキテクチャ",
+        "DevOps",
+        "機械学習",
+        "データエンジニアリング",
+    ],
+    hasCredential: qualifications.map((qualification) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: qualification.name,
+    })),
+};
 ---
 
 <BaseLayout
     pageTitle="iokira.net"
     description="吉良伊織 (iokira) の個人サイト。カフェインに弱い、コーヒー・紅茶・読書愛好家のエンジニア。"
+    ogType="profile"
+    structuredData={structuredData}
 >
     <div class="headline">
         <div class="texts">
@@ -102,7 +137,7 @@ const bio = [
                     <a
                         href={account.link}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="me noopener noreferrer"
                     >
                         {account.name}&#8599;
                     </a>
