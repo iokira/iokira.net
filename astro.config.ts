@@ -18,6 +18,9 @@ const fontDisplayOptional = Object.assign(
 export default defineConfig({
     site: "https://iokira.net",
     integrations: [sitemap()],
+    redirects: {
+        "/about": "/",
+    },
     markdown: {
         shikiConfig: {
             themes: {
