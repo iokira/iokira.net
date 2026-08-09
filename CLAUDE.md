@@ -38,8 +38,7 @@
 │   ├── layouts/
 │   │   └── BaseLayout.astro         # meta/OGP/favicon 含む共通レイアウト
 │   ├── pages/
-│   │   ├── index.astro              # トップページ (自己紹介)
-│   │   ├── about.astro
+│   │   ├── index.astro              # トップページ (自己紹介、旧 about の内容を統合)
 │   │   └── 404.astro
 │   └── styles/
 │       └── global.css               # CSS カスタムプロパティ + ダークモード
@@ -147,6 +146,7 @@ const { foo } = Astro.props;
 `BaseLayout.astro` が以下を自動出力:
 
 - `<title>`: `"タイトル | iokira.net"` 形式 (トップページのみ `"iokira.net"`)
+- `/about` → `/` へリダイレクト (`astro.config.ts` の `redirects`)
 - `<meta name="description">`
 - OGP (`og:title`, `og:description`, `og:type`, `og:url`)
 - Twitter Card (`summary`)
