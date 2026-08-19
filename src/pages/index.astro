@@ -46,7 +46,7 @@ const structuredData = {
     name: "吉良伊織",
     alternateName: ["iokira", "Kira Iori"],
     jobTitle: "エンジニア",
-    description: "コーヒー・読書愛好家。",
+    description: "コーヒー・読書愛好家",
     url: Astro.site?.href,
     image: new URL(profileImage.src, Astro.site).href,
     email: `mailto:${email}`,
@@ -75,7 +75,7 @@ const structuredData = {
 
 <BaseLayout
     pageTitle="iokira.net"
-    description="吉良伊織 (iokira) の個人サイト。カフェインに弱い、コーヒー・紅茶・読書愛好家のエンジニア。"
+    description="吉良伊織 (iokira) の個人サイト。コーヒー・読書愛好家のエンジニア。"
     ogType="profile"
     structuredData={structuredData}
 >
@@ -125,7 +125,7 @@ const structuredData = {
                     </svg>
                 </a>
             </div>
-            <p class="comment">コーヒー・読書愛好家。</p>
+            <p class="comment">コーヒー・読書愛好家</p>
         </div>
         <Image
             class="profile-image"
