@@ -15,6 +15,9 @@ const accounts = [
         icon: "M18.24 2h3.26l-7.5 8.57L22.9 22h-6.9l-5.4-7.06L4.4 22H1.14l8.03-9.18L1 2h7.06l4.88 6.45L18.24 2Zm-1.21 18h1.9L7.02 4h-1.9l11.9 16Z",
     },
 ];
+const email = "iam.iokiller@gmail.com";
+const mailIcon =
+    "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z";
 const qualifications = [
     { name: "普通自動車第一種運転免許" },
     { name: "AWS Certified Cloud Practitioner" },
@@ -46,6 +49,7 @@ const structuredData = {
     description: "カフェインに弱いコーヒー・紅茶・読書愛好家。",
     url: Astro.site?.href,
     image: new URL(profileImage.src, Astro.site).href,
+    email: `mailto:${email}`,
     sameAs: accounts.map((account) => account.link),
     alumniOf: {
         "@type": "CollegeOrUniversity",
@@ -103,6 +107,23 @@ const structuredData = {
                         </a>
                     ))
                 }
+                <a
+                    href={`mailto:${email}`}
+                    class="sns-link"
+                    aria-label={`メール: ${email}`}
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d={mailIcon}
+                            fill="currentColor"
+                        ></path>
+                    </svg>
+                </a>
             </div>
             <p class="comment">カフェインに弱いコーヒー・紅茶・読書愛好家。</p>
         </div>
@@ -164,8 +185,6 @@ const structuredData = {
     <br />
     <h2>その他</h2>
     <hr />
-    <h3>メールアドレス</h3>
-    <p>dotfiles に .gitconfig を載せているので、そちらをご参照ください。</p>
     <h3>資格</h3>
     <ul>
         {qualifications.map((qualification) => <li>{qualification.name}</li>)}
