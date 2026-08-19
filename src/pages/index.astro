@@ -211,6 +211,15 @@ const structuredData = {
             display: flex;
             flex-direction: row;
             gap: 1.5rem;
+
+            > b {
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+
+            > span {
+                min-width: 0;
+            }
         }
     }
 </style>
